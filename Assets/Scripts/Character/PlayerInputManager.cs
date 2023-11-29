@@ -14,9 +14,15 @@ public class PlayerInputManager : MonoBehaviour
     public static PlayerInputManager instance;
     private PlayerControls playerControls;
 
+    [Header("PlayerMovementInput")]
     [SerializeField] Vector2 movementInput;
     public float horizontalInput;
     public float verticalInput;
+    [Header("CameraMovementInput")]
+    [SerializeField] Vector2 cameraInput;
+    public float cameraHorizontalInput;
+    public float cameraVerticalInput;
+
     public float moveAmount;
 
     private void Awake()
@@ -61,6 +67,7 @@ public class PlayerInputManager : MonoBehaviour
             playerControls = new PlayerControls();
             // 获取控制器输入
             playerControls.PlayerMovements.Movements.performed += i => movementInput = i.ReadValue<Vector2>();
+            playerControls.PlayerCamera.CameraControls.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
         playerControls.Enable();
@@ -88,6 +95,7 @@ public class PlayerInputManager : MonoBehaviour
     private void Update()
     {
         HandleMovementInput();
+        HandleCameraMovementInput();
     }
 
     private void HandleMovementInput()
@@ -105,5 +113,11 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveAmount = 1.0f;
         }
+    }
+
+    private void HandleCameraMovementInput()
+    {
+        cameraHorizontalInput = cameraInput.x;
+        cameraVerticalInput = cameraInput.y;
     }
 }

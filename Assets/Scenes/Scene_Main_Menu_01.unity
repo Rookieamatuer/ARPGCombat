@@ -437,11 +437,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790398495}
   m_CullTransparentMesh: 1
---- !u!20 &1059284324 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8400541997306770811, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
-  m_PrefabInstance: {fileID: 2471395988373971929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1249600376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1187,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953625150478f9948a95f406a2809af9, type: 3}
---- !u!1001 &2471395988373971929
+--- !u!1001 &2375613930321411848
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1200,13 +1195,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2078648692599805768, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5482138122610238154, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
-      propertyPath: cameraObject
-      value: 
-      objectReference: {fileID: 1059284324}
+      propertyPath: maximumPivot
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482138122610238154, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
+      propertyPath: minimumPivot
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482138122610238154, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
+      propertyPath: upAndDownRotationSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482138122610238154, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
+      propertyPath: leftAndRightRotationSpeed
+      value: 220
+      objectReference: {fileID: 0}
     - target: {fileID: 6778196074086255727, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
       propertyPath: m_Name
-      value: PlayerCamera
+      value: PlayerCamera(Left&Right)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824972783240010936, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 9122183997147198434, guid: b3647c15ee1073546a6c8b784deeec65, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1435,4 +1450,4 @@ SceneRoots:
   - {fileID: 7137925746722327626}
   - {fileID: 2675818553284306361}
   - {fileID: 5577158375429321625}
-  - {fileID: 2471395988373971929}
+  - {fileID: 2375613930321411848}
