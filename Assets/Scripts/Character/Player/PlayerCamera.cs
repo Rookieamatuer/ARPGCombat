@@ -15,8 +15,8 @@ public class PlayerCamera : MonoBehaviour
     // 相机性能参数调整
     [Header("Camera Settings")]
     private float cameraSmoothSpeed = 1.0f; // 插值越大相机移动到目标位置所需的时间越长
-    [SerializeField] float leftAndRightRotationSpeed = 180;
-    [SerializeField] float upAndDownRotationSpeed = 160;
+    [SerializeField] float leftAndRightRotationSpeed = 50;
+    [SerializeField] float upAndDownRotationSpeed = 40;
     [SerializeField] float minimumPivot = -20;  // 旋转相机可达的最低点
     [SerializeField] float maximumPivot = 30;   // 旋转相机可达的最高点
     [SerializeField] float cameraCollisionRadius = 0.2f;

@@ -12,16 +12,22 @@ public class PlayerInputManager : MonoBehaviour
      */
 
     public static PlayerInputManager instance;
+    public PlayerManager player;
     private PlayerControls playerControls;
+
+    [Header("CameraMovementInput")]
+    [SerializeField] Vector2 cameraInput;
+    public float cameraHorizontalInput;
+    public float cameraVerticalInput;
 
     [Header("PlayerMovementInput")]
     [SerializeField] Vector2 movementInput;
     public float horizontalInput;
     public float verticalInput;
-    [Header("CameraMovementInput")]
-    [SerializeField] Vector2 cameraInput;
-    public float cameraHorizontalInput;
-    public float cameraVerticalInput;
+
+    [Header("PlayerActionInput")]
+    [SerializeField] bool dodgeInput = false;
+    [SerializeField] bool sprintInput = false;
 
     public float moveAmount;
 
@@ -68,6 +74,9 @@ public class PlayerInputManager : MonoBehaviour
             // 获取控制器输入
             playerControls.PlayerMovements.Movements.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.CameraControls.performed += i => cameraInput = i.ReadValue<Vector2>();
+            playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+            playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
         }
 
         playerControls.Enable();
@@ -94,10 +103,19 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
-        HandleMovementInput();
-        HandleCameraMovementInput();
+        HandleAllInputs();
     }
 
+    private void HandleAllInputs()
+    {
+        HandleMovementInput();
+        HandleCameraMovementInput();
+        HandleDodgeInput();
+        HandleSprintInput();
+    }
+
+    // 移动
+    
     private void HandleMovementInput()
     {
         horizontalInput = movementInput.x; 
@@ -113,11 +131,43 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveAmount = 1.0f;
         }
+
+        if (player == null) return;
+
+        // 非锁定状态
+        player.playerAnimatorManager.UpdateAnimatorMovementParameter(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
     }
 
     private void HandleCameraMovementInput()
     {
         cameraHorizontalInput = cameraInput.x;
         cameraVerticalInput = cameraInput.y;
+    }
+
+    // 动作
+
+    private void HandleDodgeInput()
+    {
+        if (dodgeInput)
+        {
+            dodgeInput = false;
+            // 显示菜单的时候直接返回
+
+            // 执行翻滚
+            player.playerLocoMotionManager.AttemptToPerformDodge();
+        }
+    }
+
+    private void HandleSprintInput()
+    {
+        if (sprintInput)
+        {
+
+            // 执行冲刺
+            player.playerLocoMotionManager.HandleSprinting();
+        } else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
     }
 }
