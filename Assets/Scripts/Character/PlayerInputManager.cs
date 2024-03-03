@@ -28,6 +28,7 @@ public class PlayerInputManager : MonoBehaviour
     [Header("PlayerActionInput")]
     [SerializeField] bool dodgeInput = false;
     [SerializeField] bool sprintInput = false;
+    [SerializeField] bool jumpInput = false;
 
     public float moveAmount;
 
@@ -77,6 +78,7 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
+            playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
         }
 
         playerControls.Enable();
@@ -112,6 +114,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleCameraMovementInput();
         HandleDodgeInput();
         HandleSprintInput();
+        HandleJumpInput();
     }
 
     // 移动
@@ -168,6 +171,20 @@ public class PlayerInputManager : MonoBehaviour
         } else
         {
             player.playerNetworkManager.isSprinting.Value = false;
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (jumpInput)
+        {
+            jumpInput = false;
+
+            // 如果位于菜单界面则无动作
+
+            // 尝试跳跃
+            player.playerLocoMotionManager.AttempToPerformJump();
+
         }
     }
 }
